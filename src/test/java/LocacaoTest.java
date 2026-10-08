@@ -14,243 +14,459 @@ public class LocacaoTest {
         locacao = new Locacao();
     }
 
-    // Locacao Disponível
-
     @Test
     public void deveReservarLocacaoDisponivel() {
-        locacao.setEstado(LocacaoEstadoDisponivel.getInstance());
+        LocacaoEstadoDisponivel estado = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertTrue(locacao.reservar());
         assertEquals(LocacaoEstadoReservado.getInstance(), locacao.getEstado());
+        assertEquals("Cliente 1, a locação está Disponivel", cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveColocarEmAndamentoLocacaoDisponivel() {
-        locacao.setEstado(LocacaoEstadoDisponivel.getInstance());
+        LocacaoEstadoDisponivel estado = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAndamento());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveCancelarLocacaoDisponivel() {
-        locacao.setEstado(LocacaoEstadoDisponivel.getInstance());
+        LocacaoEstadoDisponivel estado = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.cancelar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveFinalizarLocacaoDisponivel() {
-        locacao.setEstado(LocacaoEstadoDisponivel.getInstance());
+        LocacaoEstadoDisponivel estado = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.finalizar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveDisponibilizarLocacaoDisponivel() {
-        locacao.setEstado(LocacaoEstadoDisponivel.getInstance());
+        LocacaoEstadoDisponivel estado = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.disponivel());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveUltrapassarPrazoLocacaoDisponivel() {
-        locacao.setEstado(LocacaoEstadoDisponivel.getInstance());
+        LocacaoEstadoDisponivel estado = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAtraso());
+        assertNull(cliente.getUltimaNotificacao());
     }
-
-
-    // Locacao Reservada
 
     @Test
     public void naoDeveReservarLocacaoReservada() {
-        locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        LocacaoEstadoReservado estado = LocacaoEstadoReservado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.reservar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void deveColocarEmAndamentoLocacaoReservada() {
-        locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        LocacaoEstadoReservado estado = LocacaoEstadoReservado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertTrue(locacao.emAndamento());
         assertEquals(LocacaoEstadoEmAndamento.getInstance(), locacao.getEstado());
+        assertEquals("Cliente 1, a locação está Reservado", cliente.getUltimaNotificacao());
     }
 
     @Test
     public void deveCancelarLocacaoReservada() {
-        locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        LocacaoEstadoReservado estado = LocacaoEstadoReservado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertTrue(locacao.cancelar());
         assertEquals(LocacaoEstadoCancelada.getInstance(), locacao.getEstado());
+        assertEquals("Cliente 1, a locação está Reservado", cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveFinalizarLocacaoReservada() {
-        locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        LocacaoEstadoReservado estado = LocacaoEstadoReservado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.finalizar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveDisponibilizarLocacaoReservada() {
-        locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        LocacaoEstadoReservado estado = LocacaoEstadoReservado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.disponivel());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveUltrapassarPrazoLocacaoReservada() {
-        locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        LocacaoEstadoReservado estado = LocacaoEstadoReservado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAtraso());
+        assertNull(cliente.getUltimaNotificacao());
     }
-
-
-    // Locacao Em Andamento
 
     @Test
     public void naoDeveReservarLocacaoEmAndamento() {
-        locacao.setEstado(LocacaoEstadoEmAndamento.getInstance());
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.reservar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveColocarEmAndamentoLocacaoEmAndamento() {
-        locacao.setEstado(LocacaoEstadoEmAndamento.getInstance());
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAndamento());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveCancelarLocacaoEmAndamento() {
-        locacao.setEstado(LocacaoEstadoEmAndamento.getInstance());
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.cancelar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void deveFinalizarLocacaoEmAndamento() {
-        locacao.setEstado(LocacaoEstadoEmAndamento.getInstance());
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertTrue(locacao.finalizar());
         assertEquals(LocacaoEstadoFinalizada.getInstance(), locacao.getEstado());
+        assertEquals("Cliente 1, a locação está Em Andamento", cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveDisponibilizarLocacaoEmAndamento() {
-        locacao.setEstado(LocacaoEstadoEmAndamento.getInstance());
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.disponivel());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void deveUltrapassarPrazoLocacaoEmAndamento() {
-        locacao.setEstado(LocacaoEstadoEmAndamento.getInstance());
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertTrue(locacao.emAtraso());
         assertEquals(LocacaoEstadoAtrasado.getInstance(), locacao.getEstado());
+        assertEquals("Cliente 1, a locação está Em Andamento", cliente.getUltimaNotificacao());
     }
-
-
-    // Locacao Atrasada
 
     @Test
     public void naoDeveReservarLocacaoAtrasada() {
-        locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        LocacaoEstadoAtrasado estado = LocacaoEstadoAtrasado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.reservar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveColocarEmAndamentoLocacaoAtrasada() {
-        locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        LocacaoEstadoAtrasado estado = LocacaoEstadoAtrasado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAndamento());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveCancelarLocacaoAtrasada() {
-        locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        LocacaoEstadoAtrasado estado = LocacaoEstadoAtrasado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.cancelar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void deveFinalizarLocacaoAtrasada() {
-        locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        LocacaoEstadoAtrasado estado = LocacaoEstadoAtrasado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertTrue(locacao.finalizar());
         assertEquals(LocacaoEstadoFinalizada.getInstance(), locacao.getEstado());
+        assertEquals("Cliente 1, a locação está Atrasado", cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveDisponibilizarLocacaoAtrasada() {
-        locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        LocacaoEstadoAtrasado estado = LocacaoEstadoAtrasado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.disponivel());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveUltrapassarPrazoLocacaoAtrasada() {
-        locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        LocacaoEstadoAtrasado estado = LocacaoEstadoAtrasado.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAtraso());
+        assertNull(cliente.getUltimaNotificacao());
     }
-
-
-    // Locacao Finalizada
 
     @Test
     public void naoDeveReservarLocacaoFinalizada() {
-        locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        LocacaoEstadoFinalizada estado = LocacaoEstadoFinalizada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.reservar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveColocarEmAndamentoLocacaoFinalizada() {
-        locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        LocacaoEstadoFinalizada estado = LocacaoEstadoFinalizada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAndamento());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveCancelarLocacaoFinalizada() {
-        locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        LocacaoEstadoFinalizada estado = LocacaoEstadoFinalizada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.cancelar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveFinalizarLocacaoFinalizada() {
-        locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        LocacaoEstadoFinalizada estado = LocacaoEstadoFinalizada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.finalizar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveDisponibilizarLocacaoFinalizada() {
-        locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        LocacaoEstadoFinalizada estado = LocacaoEstadoFinalizada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.disponivel());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveUltrapassarPrazoLocacaoFinalizada() {
-        locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        LocacaoEstadoFinalizada estado = LocacaoEstadoFinalizada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAtraso());
+        assertNull(cliente.getUltimaNotificacao());
     }
-
-
-    // Locacao Cancelada
 
     @Test
     public void naoDeveReservarLocacaoCancelada() {
-        locacao.setEstado(LocacaoEstadoCancelada.getInstance());
+        LocacaoEstadoCancelada estado = LocacaoEstadoCancelada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.reservar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveColocarEmAndamentoLocacaoCancelada() {
-        locacao.setEstado(LocacaoEstadoCancelada.getInstance());
+        LocacaoEstadoCancelada estado = LocacaoEstadoCancelada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAndamento());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveCancelarLocacaoCancelada() {
-        locacao.setEstado(LocacaoEstadoCancelada.getInstance());
+        LocacaoEstadoCancelada estado = LocacaoEstadoCancelada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.cancelar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveFinalizarLocacaoCancelada() {
-        locacao.setEstado(LocacaoEstadoCancelada.getInstance());
+        LocacaoEstadoCancelada estado = LocacaoEstadoCancelada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.finalizar());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveDisponibilizarLocacaoCancelada() {
-        locacao.setEstado(LocacaoEstadoCancelada.getInstance());
+        LocacaoEstadoCancelada estado = LocacaoEstadoCancelada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.disponivel());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
     @Test
     public void naoDeveUltrapassarPrazoLocacaoCancelada() {
-        locacao.setEstado(LocacaoEstadoCancelada.getInstance());
+        LocacaoEstadoCancelada estado = LocacaoEstadoCancelada.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
         assertFalse(locacao.emAtraso());
+        assertNull(cliente.getUltimaNotificacao());
     }
 
+    @Test
+    public void deveNotificarUmCliente() {
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+        cliente.acompanhar(estado);
+
+        locacao.finalizar();
+
+        assertEquals("Cliente 1, a locação está Em Andamento", cliente.getUltimaNotificacao());
+    }
+
+    @Test
+    public void deveNotificarClientes() {
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente1 = new Cliente("Cliente 1");
+        Cliente cliente2 = new Cliente("Cliente 2");
+        cliente1.acompanhar(estado);
+        cliente2.acompanhar(estado);
+
+        locacao.finalizar();
+
+        assertEquals("Cliente 1, a locação está Em Andamento", cliente1.getUltimaNotificacao());
+        assertEquals("Cliente 2, a locação está Em Andamento", cliente2.getUltimaNotificacao());
+    }
+
+    @Test
+    public void naoDeveNotificarCliente() {
+        LocacaoEstadoEmAndamento estado = LocacaoEstadoEmAndamento.getInstance();
+        locacao.setEstado(estado);
+        Cliente cliente = new Cliente("Cliente 1");
+
+        locacao.finalizar();
+
+        assertNull(cliente.getUltimaNotificacao());
+    }
+
+    @Test
+    public void deveNotificarClienteEstadoEmAndamento() {
+        LocacaoEstadoEmAndamento estadoA = LocacaoEstadoEmAndamento.getInstance();
+        LocacaoEstadoDisponivel estadoB = LocacaoEstadoDisponivel.getInstance();
+        locacao.setEstado(estadoA);
+        Cliente cliente1 = new Cliente("Cliente 1");
+        Cliente cliente2 = new Cliente("Cliente 2");
+        cliente1.acompanhar(estadoA);
+        cliente2.acompanhar(estadoB);
+
+        locacao.finalizar();
+
+        assertEquals("Cliente 1, a locação está Em Andamento", cliente1.getUltimaNotificacao());
+        assertNull(cliente2.getUltimaNotificacao());
+    }
 }

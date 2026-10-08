@@ -1,6 +1,8 @@
 package org.locacao;
 
-public abstract class LocacaoEstado {
+import java.util.Observable;
+
+public abstract class LocacaoEstado extends Observable {
 
     public abstract String getEstado();
 
@@ -26,5 +28,15 @@ public abstract class LocacaoEstado {
 
     public boolean emAtraso(Locacao locacao) {
         return false;
+    }
+
+    public void notificar() {
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public String toString() {
+        return getEstado();
     }
 }

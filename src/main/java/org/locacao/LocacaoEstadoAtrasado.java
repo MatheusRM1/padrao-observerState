@@ -14,6 +14,8 @@ public class LocacaoEstadoAtrasado extends LocacaoEstado{
 
     public boolean finalizar(Locacao locacao) {
         locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        this.notificar();
+
         return true;
     }
 }

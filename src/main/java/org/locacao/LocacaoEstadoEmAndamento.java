@@ -16,12 +16,14 @@ public class LocacaoEstadoEmAndamento extends LocacaoEstado{
     @Override
     public boolean emAtraso(Locacao locacao) {
         locacao.setEstado(LocacaoEstadoAtrasado.getInstance());
+        this.notificar();
         return true;
     }
 
     @Override
     public boolean finalizar(Locacao locacao) {
         locacao.setEstado(LocacaoEstadoFinalizada.getInstance());
+        this.notificar();
         return true;
     }
 }

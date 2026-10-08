@@ -16,6 +16,7 @@ public class LocacaoEstadoDisponivel extends LocacaoEstado{
     @Override
     public boolean reservar(Locacao locacao) {
         locacao.setEstado(LocacaoEstadoReservado.getInstance());
+        this.notificar();
         return true;
     }
 }
